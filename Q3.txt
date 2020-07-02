@@ -1,0 +1,59 @@
+SELECT t.Name, a.AlbumId
+FROM Tracks t LEFT JOIN Albums a 
+WHERE t.AlbumId = a.AlbumId
+AND a.Title = 'Californication';
+
+
+SELECT Name,
+       AlbumID
+FROM Tracks
+WHERE AlbumId IN (SELECT AlbumId
+    FROM Albums
+    WHERE Title = "Californication");
+
+
+SELECT DISTINCT(c.CustomerId),c.FirstName, c.LastName,c.City,c.Email
+FROM Customers c INNER JOIN Invoices i 
+WHERE c.CustomerId = i.CustomerId;
+
+
+
+SELECT Tracks.Name,
+       A.Name AS Artist,
+       Albums.Title AS Album,
+       Tracks.TrackId
+FROM ((Tracks INNER JOIN Albums
+ON Tracks.AlbumId = Albums.AlbumId)
+INNER JOIN Artists A
+ON A.ArtistId = Albums.ArtistId);
+
+
+
+SELECT M.LastName AS Manager, 
+       E.LastName AS Employee
+FROM Employees E INNER JOIN Employees M 
+ON E.ReportsTo = M.EmployeeID 
+
+
+
+SELECT Name AS Artist,
+       Artists.ArtistId,
+       Albums.Title AS Album
+FROM Artists LEFT JOIN Albums
+ON Artists.ArtistId = Albums.ArtistId
+WHERE Album IS NULL
+
+
+SELECT FirstName, LastName
+FROM Employees 
+UNION
+SELECT FirstName, LastName
+FROM Customers
+ORDER BY LastName DESC
+
+
+
+SELECT c.City, i.BillingCity
+FROM Customers C INNER JOIN Invoices i
+WHERE c.CustomerId = i.CustomerId
+AND c.City != i.BillingCity

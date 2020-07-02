@@ -1,0 +1,37 @@
+SELECT CustomerId,
+       FirstName || " " || LastName AS FullName,
+       Address,
+       UPPER(City || " " || Country) AS CityCountry
+FROM Customers
+
+
+
+SELECT LOWER(SUBSTR(FirstName, 1, 4) || SUBSTR(LastName, 1, 2))
+FROM Employees
+
+
+
+SELECT FirstName, LastName,
+  (STRFTIME('%Y', 'now') - STRFTIME('%Y', HireDate)) AS Exp
+FROM Employees
+WHERE Exp >= 15
+ORDER BY LastName ASC
+  
+
+
+SELECT COUNT(*) FROM Customers
+WHERE [Phone] IS NULL
+
+
+SELECT CustomerId, City, COUNT(CustomerID) AS Cnt
+FROM Customers
+GROUP BY City
+ORDER BY Cnt DESC;
+
+
+
+SELECT c.FirstName,c.LastName,i.InvoiceId,
+       c.FirstName || c.LastName || i.InvoiceID AS NewId
+FROM Customers c INNER JOIN Invoices i
+ON c.CustomerId = i.CustomerID
+WHERE NewId LIKE '%AstridGruber%'
